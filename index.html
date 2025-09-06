@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room Availability Prediction System</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            background-color: #e8f5e9;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .occupied {
+            color: #d32f2f;
+        }
+        .unoccupied {
+            color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏨 Room Availability Prediction</h1>
+
+        <section class="input-section">
+            <h2>🔎 Predict Available Rooms</h2>
+            <form id="predictForm">
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="temperature">Temperature (°C):</label>
+                    <input type="number" id="temperature" name="temperature" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="sound">Sound:</label>
+                    <input type="number" id="sound" name="sound" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="light">Light :</label>
+                    <input type="number" id="light" name="light" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="co2">CO₂:</label>
+                    <input type="number" id="co2" name="co2" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="co2_slope">CO₂ Slope:</label>
+                    <input type="number" id="co2_slope" name="co2_slope" step="0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="pir">PIR Sensor:</label>
+                    <input type="number" id="pir" name="pir" step="0.1" required>
+                </div>
+
+                <button type="submit" class="btn">Check Availability</button>
+            </form>
+
+            <div id="predictionResult" class="result-box"></div>
+        
+
+           
+        
+    
+    </div>
+
+    <script>
+        document.getElementById('predictForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            const data = {
+                temperature: parseFloat(document.getElementById('temperature').value),
+                sound: parseFloat(document.getElementById('sound').value),
+                light: parseFloat(document.getElementById('light').value),
+                co2: parseFloat(document.getElementById('co2').value),
+                co2_slope: parseFloat(document.getElementById('co2_slope').value),
+                pir: parseFloat(document.getElementById('pir').value)
+            };
+
+            // Simulate prediction logic locally
+            let prediction = "Unoccupied";
+            if (data.pir > 0.5 || data.sound > 40 || data.light > 300) {
+                prediction = "Occupied";
+            }
+
+            // Random dummy data for room occupancy stats
+            const rooms_occupied = Math.floor(Math.random() * 10) + 1;  // 1 to 10
+            const avg_members_per_room = (Math.random() * 4 + 1).toFixed(1);  // 1.0 to 5.0
+
+            // Show result
+            document.getElementById('predictionResult').innerHTML = `
+                🏠 Prediction: <strong>${prediction}</strong><br>
+                🚪 Rooms Occupied: <strong>${rooms_occupied}</strong><br>
+                👥 Average Members per Room: <strong>${avg_members_per_room}</strong>
+            `;
+        });
+    </script>
+
+</body>
+</html>
